@@ -55,6 +55,7 @@ function ret24(): bigint | null {
 function buy(state: BarsState): OrderInput[] {
   const room = state.weightRoom(SYMBOL);
   const amount = state.cash < room ? state.cash : room;
+  if (amount <= 0n) return [];
   if (amount < BigInt(state.hello.fees.min_notional_quote_units)) return [];
   return [{ side: "buy", symbol: SYMBOL, notional_quote_units: amount, max_slippage_bps: MAX_SLIPPAGE_BPS }];
 }
